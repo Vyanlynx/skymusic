@@ -1,0 +1,1 @@
+export const NoWindowAvailable = 'No window available'

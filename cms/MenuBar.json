@@ -1,0 +1,19 @@
+[
+    {
+        "component": "MenuBar",
+        "menubar": [
+            {
+                "header":"FOR YOU",
+                "list":["Explore","Radio","Trending","Plans"]
+            },
+            {
+                "header":"PLAYLIST",
+                "list":["Your Playlists","Made for you","Favorites"]
+            },
+            {
+                "header":"YOUR LIBRARY",
+                "list":["Recently played","Random memory"]
+            }
+        ]
+    }
+]

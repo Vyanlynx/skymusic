@@ -1,0 +1,28 @@
+.album_card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-grow: 1;
+    position: relative;
+}
+
+.album_card div:nth-child(3) {
+    padding-top: 1vh;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.album_card div:nth-child(4) {
+    font-size: 10px;
+}
+
+.img_container {
+    position: absolute;
+    top: 0px;
+    background-color: transparent;
+}
+.img_container > *{
+    margin: 0 15px;
+}

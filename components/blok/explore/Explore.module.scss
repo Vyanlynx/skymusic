@@ -1,0 +1,38 @@
+.top_albums {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    padding: 1em;
+    gap: 1vw;
+    max-height: 410px;
+    overflow: hidden;
+    flex-grow: 1;
+
+    :hover {
+        opacity: 0.8;
+    }
+}
+
+.modalAlign {
+    @extend .top_albums;
+    max-height: none;
+    color:black;
+}
+
+.showMorebtn {
+    float: right;
+    border: none;
+    font-size: 13px;
+    font-weight: 600;
+    background-color: transparent;
+    color: white;
+    margin-right: 1em;
+}
+
+@media only screen and (max-width: 600px) {
+    .top_albums {
+        // gap: 2vw;  
+    }
+}
+
+//have to write media query for 2 layer alignment
