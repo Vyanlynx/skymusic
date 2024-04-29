@@ -1,6 +1,9 @@
-// import { combineReducers } from "redux";
-// import { customerDetailsSelector } from "./slice/CustomerDetailsSlice";
+import { combineReducers } from "redux";
+import customerDetailsSlice from './slice/CustomerDetailsSlice';
+import ExploreSlice from './slice/ExploreStoreSlice'
+const rootReducer = combineReducers({
+    customerDetails: customerDetailsSlice,
+    ExplorePageDetails: ExploreSlice
+})
 
-// const rootReducer = combineReducers({
-//     customerDetails: customerDetailsSelector,
-// })
+export default rootReducer;

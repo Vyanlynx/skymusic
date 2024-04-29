@@ -5,7 +5,7 @@ const initialState: any = {
     status: {}
 }
 const { actions, reducer } = createSlice({
-    name: "CustomerDetailsSlice",
+    name: "CustomerDetails",
     initialState,
     reducers: {
         setTrending: (state, action: PayloadAction<any>): void => {
@@ -16,5 +16,12 @@ const { actions, reducer } = createSlice({
 })
 
 export const { setTrending } = actions;
+export const fetchAlbums = (payload: string) => async (dispatch: any) => {
+    try {
+        dispatch(setTrending('initialState'));
+    } catch (error) {
+        
+    }
+}
 export default reducer;
 export const customerDetailsSelector = (state: any) => state.CustomerDetailsStore;

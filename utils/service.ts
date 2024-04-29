@@ -3,7 +3,7 @@ import axios from 'axios';
 import { getLocalStorage } from './webStorage';
 
 const axiosInterceptorInstance = axios.create({
-    baseURL: 'https://jsonplaceholder.typicode.com/todos/', // API base URL
+    baseURL: 'https://itunes.apple.com/', // API base URL
 });
 
 // Request interceptor
@@ -17,7 +17,6 @@ axiosInterceptorInstance.interceptors.request.use(
         return config;
     },
     (error) => {
-        // Handle request errors here
         return Promise.reject(error);
     }
 );
@@ -25,11 +24,9 @@ axiosInterceptorInstance.interceptors.request.use(
 // Response interceptor
 axiosInterceptorInstance.interceptors.response.use(
     (response) => {
-        // Modify the response data here
         return response;
     },
     (error) => {
-        // Handle response errors here
         return Promise.reject(error);
     }
 );
