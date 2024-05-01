@@ -92,7 +92,7 @@ body {
 }
   
 @media screen and (max-width:640px) {
-    .menubar {
+    .menubar,.userProfile {
         display: none;
     }
     .menubarMobile {

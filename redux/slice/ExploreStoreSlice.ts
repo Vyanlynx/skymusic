@@ -1,5 +1,4 @@
-import { Album_path } from '@/utils/constants';
-import { apiCall } from '@/utils/genericFunctions';
+import { apiCall } from '@/utils/helpers';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppDispatch } from '../store';
 
@@ -7,12 +6,7 @@ const initialState: any = {
     apiResponse: {},
     favourites: [],
     playlists: {
-        MyPlayList: [],
-        FavouriteTracks: [],
-        FavouriteTracks1: [],
-        FavouriteTracks2: [],
-        FavouriteTracks3: [],
-        FavouriteTracks4: [],
+        MyPlayList: []
     },
     showPlayListPopUp: false,
     isOpenMenu: true,

@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import Image from 'next/image';
 import style from './AlbumCards.module.scss'
-import { wordSlicer, createKeyFromString } from '@/utils/genericFunctions';
+import { wordSlicer, createKeyFromString } from '@/utils/helpers';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '@/redux/store';
 import { addTofavourites, removeFromFavourites } from '@/redux/slice/ExploreStoreSlice'
@@ -29,24 +29,22 @@ const Artistname = styled.section`
 font-size: 10px;
 `;
 export default function AlbumCards(props: any) {
-    const [showPlayListbtn, setShowPlayListbtn] = useState<any>();
-    // function isMenuPopUpOpen(key: string) {
-    //     return showPlayListbtn === createKeyFromString(key)
-    // }
+    const [showPlayListbtn, setShowPlayListbtn] = useState<boolean>(false);
     /**
      * Extract the album label from the props.
      */
-    let albumLabel: string = props['im:name']?.label;
+    let albumLabel: string|undefined = props?.['im:name']?.label;
 
     /**
      * Extract the artist name from the props and slice it to a shorter length.
      */
-    let artist: string = wordSlicer(props['im:artist']?.label);
+    let artist: string|undefined = wordSlicer(props['im:artist']?.label ?? '');
 
     /**
      * Extract the title from the album label and slice it to a shorter length.
      */
-    let title: string = wordSlicer(props['im:name']?.label?.split(' ')?.slice(0, 2));
+    // @ts-ignore: Unreachable code error
+    let title: string|undefined = wordSlicer(props?.['im:name']?.label?.split(' ')?.slice(0, 2));
 
     /**
      * Get the favourites from the Redux store.
@@ -86,19 +84,20 @@ export default function AlbumCards(props: any) {
                 className={style.albumImage}
                 src={props?.['im:image']?.[2]?.label ?? '/assests/brokePic.svg'}
                 width={120} height={150}
-                alt={`${albumLabel} image`} style={{ borderRadius: "10%" }} />
+                alt={`${albumLabel} image`} style={{ borderRadius: "10%" }} priority={false}/>
 
             <div className={style.img_container}>
-                <Image src={isAlreadyAvailInFavourites(albumLabel)}
+                <Image src={isAlreadyAvailInFavourites(albumLabel ?? '')}
                     width={20} height={15}
                     alt={`${albumLabel} image`}
-                    onClick={() => addtoFavourites(albumLabel)}
-                    style={{ borderRadius: "10%" }} />
+                    onClick={() => addtoFavourites(albumLabel ?? '')}
+                    style={{ borderRadius: "10%" }} priority={false}/>
 
                 <Image src={'/assests/addIcon.svg'}
                     width={20} height={15}
                     alt={`${albumLabel} image`}
                     style={{ borderRadius: "10%" }}
+                    priority={false}
                     onMouseEnter={() => setShowPlayListbtn(true)}
                     onMouseLeave={() => setShowPlayListbtn(false)}
                 />

@@ -1,34 +1,45 @@
-.headercontainer{
+.headercontainer {
     width: 100%;
     padding-left: 2em;
     // background-color: aqua;
 }
-.secondary{
+
+.secondary {
     width: 100%;
     color: rgb(216, 255, 237);
 }
-.searchInput{
+
+.searchInput {
     border: 2px solid white;
     width: 18vw;
     border-radius: 5px;
-    color:white;
+    color: white;
     // padding-left: 25px;
     font-size: 12px;
     padding: 5px 0 5px 10px;
 }
-.searchButton{
+
+.searchButton {
     border-radius: 5px;
     // border: none;
-    color:white;
+    color: white;
     background-color: blue;
 }
-.offer{
+
+.offer {
     background-image: linear-gradient(to right top, #df1b8b, #cd30a1, #b641b4, #994fc2, #755bcc, #5d6fdc, #3e80e7, #0090ef, #00aefc, #00c9fe, #00e1f7, #3af8ec);
     padding: 5px 10px;
     font-size: 12px;
     border-radius: 5px;
     font-weight: 600;
 }
-.w-0{
+
+.w-0 {
     max-width: 0;
+}
+
+@media screen and (max-width:640px) {
+    .searchInput {
+        width: 150px;
+    }
 }

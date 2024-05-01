@@ -1,26 +1,39 @@
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/redux/store';
-import style from './MenuLists.module.scss';
-import { useDispatch } from "react-redux";
 import { setShowPlayListPopUp } from '@/redux/slice/ExploreStoreSlice';
+import style from './MenuLists.module.scss';
 
 export interface MenuListProps {
-    list: string[],
-    header: string
+  list: string[];
+  header: string;
 }
-const MenuLists = ({ header, list }: MenuListProps): JSX.Element => {
-    let dispatch: AppDispatch = useDispatch();
-    const handleClick = (items: string) => {
-        dispatch(setShowPlayListPopUp(items))
-    }
-    return (
-        <section className={style.menu_list}>
-            <div className={style.title}>{header}</div>
-            {list?.length && list?.map((items: string) => {
-                return <button className={`${style.item} secondaryButton`}
-                    onClick={()=>handleClick(items)}
-                    key={items}>{items}</button>
-            })}
-        </section>
-    )
-}
+
+const MenuLists: React.FC<MenuListProps> = ({ header, list }: MenuListProps) => {
+  const dispatch: AppDispatch = useDispatch();
+
+  // Handler for clicking on menu items
+  const handleClick = (item: string) => {
+    dispatch(setShowPlayListPopUp(item));
+  };
+
+  return (
+    <section className={style.menu_list}>
+      {/* Display menu header */}
+      <div className={style.title}>{header}</div>
+      
+      {/* Render menu items */}
+      {list.map((item: string) => (
+        <button
+          className={`${style.item} secondaryButton`}
+          onClick={() => handleClick(item)}
+          key={item}
+        >
+          {item}
+        </button>
+      ))}
+    </section>
+  );
+};
+
 export default MenuLists;

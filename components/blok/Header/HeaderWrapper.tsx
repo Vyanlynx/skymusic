@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, ChangeEvent } from 'react';
 import Image from 'next/image';
 import style from './HeaderWrapper.module.scss';
 import UserProfile from '@/components/generic/userProfile/UserProfile';
@@ -7,29 +7,31 @@ import styled from 'styled-components';
 import Mockdata from '@/cms/MockAPIdata.json';
 import { useDispatch, useSelector } from 'react-redux';
 import { setOpenMenuBar, setsearchedAlbum } from '@/redux/slice/ExploreStoreSlice';
-import { searchbarSuggesstionsFilter } from '@/utils/genericFunctions';
+import { searchbarSuggesstionsFilter } from '@/utils/helpers';
+import { AppDispatch } from '@/redux/store';
 
 const Input = styled.input`
   color: black;
 `;
 
 const HeaderWrapper = (): JSX.Element => {
-  const [search, setSearch] = useState<any>([]);
-  const dispatch = useDispatch();
-  let inputRef = useRef('');
+  const [search, setSearch] = useState<string[]>([]);
+  const dispatch: AppDispatch = useDispatch();
+  let inputRef = useRef<string[]>([]);//to store the selected album response
   const { isOpenMenu } = useSelector((state: any) => state.ExplorePageDetails);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  //onchange of input field
+  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value } = e.target;
     inputRef.current = search.filter((item: any) => item.displayTag === value);
     if (value?.length) {
       setSearch(searchbarSuggesstionsFilter(Mockdata, value));
     }
   };
-
+  //onClick of Logo - show and hide menu bar
   const handleSideBarHandler = (): void => {
     dispatch(setOpenMenuBar());
   };
+  //store the clicked Album in Redux Store
   const handleSearchSuggession = (): void => {
     dispatch(setsearchedAlbum(inputRef.current));
   };
@@ -60,10 +62,12 @@ const HeaderWrapper = (): JSX.Element => {
             ))}
           </datalist> : ''}
           <button className="btn btn-primary" onClick={handleSearchSuggession}>
-            <Image src={'/assests/searchIcon.svg'} alt="SearchIcon" height={16} width={16} />
+            <Image src={'/assests/searchIcon.svg'} alt="SearchIcon" height={16} width={16} priority={false} />
           </button>
         </div>
-        <UserProfile />
+        <section className='userProfile'>
+          <UserProfile />
+        </section>
       </div>
     </div>
   );

@@ -1,5 +1,4 @@
 'use client'
-// import type { Metadata } from "next";
 import { Quicksand } from "next/font/google";
 import 'bootstrap/dist/css/bootstrap.css';
 import "./globals.css";
@@ -22,6 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <title>SkyMusic</title>
+        <link rel="icon" href="/next.svg" sizes="any" />
       </head>
       <body>
         <Provider store={store}>

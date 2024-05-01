@@ -1,20 +1,42 @@
-import React from 'react'
-import MusicCard from '../musicCards/MusicCard'
-import AuthorDetailsCard from '../authorCards/AuthorDetailsCard'
+import React from 'react';
+import MusicCard from '../musicCards/MusicCard';
+import AuthorDetailsCard from '../authorCards/AuthorDetailsCard';
 
-export default function AlbumTypeCards({ data }: any) {
+
+interface PropsTypes {
+    data: any;
+}
+
+const AlbumTypeCards = ({ data }:PropsTypes):JSX.Element => {
     return (
         <div>
-            {Object.keys(data).map((items: any, index: number) => {
-                return <React.Fragment key={index}>
-                    <AuthorDetailsCard authorName={items} imgSrc={data?.[items]?.[0]?.['im:image']?.[2]} />
+            {Object.keys(data).map((authorName: string, index: number) => (
+                <React.Fragment key={index}>
+                    {/* Display author details */}
+                    <AuthorDetailsCard
+                        authorName={authorName}
+                        imgSrc={data?.[authorName]?.[0]?.['im:image']?.[2]}
+                    />
+                    {/* Display music cards */}
                     <section className='d-flex flex-wrap my-3 flex-grow-1'>
-                        {data[items]?.length ? <>{data[items]?.map((elements: any) => {
-                            return <MusicCard key={elements?.['im:name']?.label} title={items} favourites={elements} />
-                        })}</> : "No Albums found!"
-                        }</section>
+                        {data?.[authorName]?.length ? (
+                            <>
+                                {data?.[authorName]?.map((album: any,index:number) => (
+                                    <MusicCard
+                                        key={index}
+                                        favourites={album}
+                                    />
+                                ))}
+                            </>
+                        ) : (
+                            "No Albums found!"
+                        )}
+                    </section>
                 </React.Fragment>
-            })}
+            ))}
         </div>
-    )
-}
+    );
+};
+
+export default AlbumTypeCards;
+
