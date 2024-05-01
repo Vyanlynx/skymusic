@@ -18,13 +18,13 @@ const HeaderWrapper = (): JSX.Element => {
   const [search, setSearch] = useState<string[]>([]);
   const dispatch: AppDispatch = useDispatch();
   let inputRef = useRef<string[]>([]);//to store the selected album response
-  const { isOpenMenu } = useSelector((state: any) => state.ExplorePageDetails);
+  const { isOpenMenu,apiResponse } = useSelector((state: any) => state.ExplorePageDetails);
   //onchange of input field
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value } = e.target;
     inputRef.current = search.filter((item: any) => item.displayTag === value);
     if (value?.length) {
-      setSearch(searchbarSuggesstionsFilter(Mockdata, value));
+      setSearch(searchbarSuggesstionsFilter(apiResponse, value));
     }
   };
   //onClick of Logo - show and hide menu bar

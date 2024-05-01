@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useMemo, useState } from "react";
 import { sortAlbums } from "@/utils/sortMusic";
-import Mockdata from '../../../cms/MockAPIdata.json'
+// import Mockdata from '../../../cms/MockAPIdata.json'
 import style from './Explore.module.scss'
 import ModalComponent from "@/components/shared/modal/Modal";
 import CMSdata from '@/cms/Explore.json';
