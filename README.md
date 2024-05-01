@@ -25,4 +25,3 @@ Features:
 6. Gerne:
     -> By using the 100 albums we get from the API, they will be grouped based on popularity.
     -> When we click on the Gerne button in the menu bar, we'll get that popup.
-

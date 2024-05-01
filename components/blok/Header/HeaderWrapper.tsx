@@ -1,14 +1,15 @@
 'use client';
-import React, { useEffect, useState, useRef, ChangeEvent } from 'react';
+import React, { useState, useRef, ChangeEvent } from 'react';
 import Image from 'next/image';
 import style from './HeaderWrapper.module.scss';
-import UserProfile from '@/components/generic/userProfile/UserProfile';
+import dynamic from 'next/dynamic'
 import styled from 'styled-components';
-import Mockdata from '@/cms/MockAPIdata.json';
+// import Mockdata from '@/cms/MockAPIdata.json';
 import { useDispatch, useSelector } from 'react-redux';
 import { setOpenMenuBar, setsearchedAlbum } from '@/redux/slice/ExploreStoreSlice';
 import { searchbarSuggesstionsFilter } from '@/utils/helpers';
 import { AppDispatch } from '@/redux/store';
+const UserProfile = dynamic(() => import("@/components/generic/userProfile/UserProfile"))
 
 const Input = styled.input`
   color: black;

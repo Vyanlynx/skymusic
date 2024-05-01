@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import Image from 'next/image';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '@/redux/store';
 import { setPlaylistDetails } from '@/redux/slice/ExploreStoreSlice';
-import AccordionComponent from '@/components/shared/accordion/AccordionComponent';
-import MusicCard from '../musicCards/MusicCard';
+import dynamic from 'next/dynamic'
+const MusicCard = dynamic(() => import("../musicCards/MusicCard"))
+const AccordionComponent = dynamic(() => import("@/components/shared/accordion/AccordionComponent"))
 import styles from './PlayList.module.scss';
 
 interface PlayListProps {}

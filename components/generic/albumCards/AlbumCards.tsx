@@ -7,7 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '@/redux/store';
 import { addTofavourites, removeFromFavourites } from '@/redux/slice/ExploreStoreSlice'
 import styled from 'styled-components';
-import PopUpCard from '../popUpCards/PopUpCard';
+import dynamic from 'next/dynamic'
+const PopUpCard = dynamic(() => import("../popUpCards/PopUpCard"))
 
 /**
  * The AlbumCards component receives props from the parent component.

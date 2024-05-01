@@ -1,7 +1,7 @@
 import React from 'react';
-import MusicCard from '../musicCards/MusicCard';
-import AuthorDetailsCard from '../authorCards/AuthorDetailsCard';
-
+import dynamic from 'next/dynamic'
+const MusicCard = dynamic(() => import("../musicCards/MusicCard"))
+const AuthorDetailsCard = dynamic(() => import("../authorCards/AuthorDetailsCard"))
 
 interface PropsTypes {
     data: any;

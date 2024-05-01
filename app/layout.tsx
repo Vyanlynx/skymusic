@@ -2,13 +2,15 @@
 import { Quicksand } from "next/font/google";
 import 'bootstrap/dist/css/bootstrap.css';
 import "./globals.css";
-import MenuBar from "@/components/blok/sideMenuBar/MenuBar";
-import HeaderWrapper from "@/components/blok/Header/HeaderWrapper";
+import dynamic from 'next/dynamic'
+const MenuBar = dynamic(() => import("@/components/blok/sideMenuBar/MenuBar"))
+const HeaderWrapper = dynamic(() => import("@/components/blok/Header/HeaderWrapper"))
+const Footer = dynamic(() => import("@/components/blok/Footer/Footer"))
+
 import BootstrapClient from "@/utils/BootstrapClient";
 import StyledComponentsRegistry from "./registry";
 import { Provider } from "react-redux";
 import store from "@/redux/store";
-import Footer from "@/components/blok/Footer/Footer";
 
 const inter = Quicksand({ subsets: ["latin"] });
 

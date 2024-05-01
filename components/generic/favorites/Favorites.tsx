@@ -1,7 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { filterSongsFromKeys } from '@/utils/helpers';
-import MusicCard from '../musicCards/MusicCard';
+import dynamic from 'next/dynamic'
+const MusicCard = dynamic(() => import("../musicCards/MusicCard"))
 
 const Favorites: React.FC = () => {
   // Redux state

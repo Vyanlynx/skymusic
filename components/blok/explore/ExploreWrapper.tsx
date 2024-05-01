@@ -1,21 +1,22 @@
 'use client'
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect,useState } from "react";
+import dynamic from 'next/dynamic'
+
 import { sortAlbums } from "@/utils/sortMusic";
-// import Mockdata from '../../../cms/MockAPIdata.json'
 import style from './Explore.module.scss'
-import ModalComponent from "@/components/shared/modal/Modal";
 import CMSdata from '@/cms/Explore.json';
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAlbums, setShowPlayListPopUp } from "@/redux/slice/ExploreStoreSlice";
 import { AppDispatch } from "@/redux/store";
-import PlayList from "@/components/generic/playListModal/PlayList";
-import MusicCard from "@/components/generic/musicCards/MusicCard";
-import Favorites from "@/components/generic/favorites/Favorites";
 import { ARTIST, FAVOURITES, GENRE, YOURPLAYLISTS } from "@/utils/constants";
-import AlbumTypeCards from "@/components/generic/albumTypes/AlbumTypeCards";
-import RenderAlbumCards from "@/components/generic/albumCards/RenderAlbumCards";
-// import { ApiResponseType } from "@/type-checking/apiResponseType";
+
+const ModalComponent = dynamic(() => import("@/components/shared/modal/Modal"))
+const PlayList = dynamic(() => import("@/components/generic/playListModal/PlayList"))
+const MusicCard = dynamic(() => import("@/components/generic/musicCards/MusicCard"))
+const Favorites = dynamic(() => import("@/components/generic/favorites/Favorites"))
+const AlbumTypeCards = dynamic(() => import("@/components/generic/albumTypes/AlbumTypeCards"))
+const RenderAlbumCards = dynamic(() => import("@/components/generic/albumCards/RenderAlbumCards"))
 const Container = styled.div`
   font-size:100%;
   font-weight:500;
@@ -39,12 +40,12 @@ export default function ExploreWrapper() {
 
     return (
         <div className="mx-3">
-             {/* Display searched album */}
+            {/* Display searched album */}
             {searchedAlbum?.[0]?.displayTag && <div>
                 <Container>YOUR Search result</Container>
                 <MusicCard favourites={searchedAlbum[0]} />
             </div>}
-             {/* Section for top albums */}
+            {/* Section for top albums */}
             <section className="d-flex align-items-center w-100 justify-content-between">
                 <h6>{CMSdata[0]?.title1}</h6>
                 <button type="button" className={style.showMorebtn} onClick={() => setShow(!show)} >

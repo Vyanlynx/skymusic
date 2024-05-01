@@ -1,6 +1,7 @@
 import React from 'react'
-import AlbumCards from './AlbumCards'
-import LoadingComponent from '@/components/shared/loader/LoadingComponent'
+import dynamic from 'next/dynamic'
+const AlbumCards = dynamic(() => import("./AlbumCards"))
+const LoadingComponent = dynamic(() => import("@/components/shared/loader/LoadingComponent"))
 
 export default function RenderAlbumCards(props: any) {
     return (
