@@ -4,11 +4,11 @@
         "menubar": [
             {
                 "header":"FOR YOU",
-                "list":["Explore","Radio","Trending","Plans"]
+                "list":["Explore","Radio","Artist","Genre"]
             },
             {
                 "header":"PLAYLIST",
-                "list":["Your Playlists","Made for you","Favorites"]
+                "list":["Your Playlists","Favorites"]
             },
             {
                 "header":"YOUR LIBRARY",

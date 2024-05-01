@@ -6,21 +6,19 @@
     cursor: pointer;
     flex-grow: 1;
     position: relative;
+    z-index: 1;
+    
 }
-
-.album_card div:nth-child(3) {
-    padding-top: 1vh;
-    font-size: 12px;
-    font-weight: 600;
+.albumImage{
+    filter: drop-shadow(5px 5px 5px rgb(36, 90, 106));
+    &:hover{
+        filter: drop-shadow(10px 10px 5px rgb(2, 255, 242));
+    }
 }
-
-.album_card div:nth-child(4) {
-    font-size: 10px;
-}
-
 .img_container {
     position: absolute;
     top: 0px;
+    left: 10px;
     background-color: transparent;
 }
 .img_container > *{

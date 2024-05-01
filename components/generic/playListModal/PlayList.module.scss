@@ -1,0 +1,24 @@
+.createButton{
+    background-color: transparent;
+    border: none;
+    padding: 0px;
+    // margin-bottom: 1em;
+    span{
+        font-size: 13px;
+    }
+}
+.playListCards{
+    display: flex;
+    flex-wrap: wrap;
+    gap:1em;
+}
+.createButton{
+    border-radius: 5px;
+    background-color: rgb(255, 153, 0);
+    margin: 5px;
+    padding: 5px 10px;
+    color: white;
+}
+.inputPlaylist{
+    padding: 2px 5px;
+}

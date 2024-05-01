@@ -9,6 +9,7 @@ import BootstrapClient from "@/utils/BootstrapClient";
 import StyledComponentsRegistry from "./registry";
 import { Provider } from "react-redux";
 import store from "@/redux/store";
+import Footer from "@/components/blok/Footer/Footer";
 
 const inter = Quicksand({ subsets: ["latin"] });
 
@@ -22,20 +23,25 @@ export default function RootLayout({
       <head>
         <title>SkyMusic</title>
       </head>
-      <body className={inter.className}>
+      <body>
         <Provider store={store}>
           <StyledComponentsRegistry>
-            <header><HeaderWrapper /></header>
+            <header>
+              <HeaderWrapper />
+            </header>
             <div className="d-flex">
-              <aside className="menubar"><MenuBar /></aside>
-              <section className="layoutChild">{children}</section>
-              <footer></footer>
+                <MenuBar />
+              <main className="layoutChild">
+                {children}
+              </main>
             </div>
+            <footer>
+              <Footer />
+            </footer>
             <BootstrapClient />
           </StyledComponentsRegistry>
         </Provider>
       </body>
-
     </html>
   );
 }

@@ -4,13 +4,9 @@
     flex-wrap: wrap;
     padding: 1em;
     gap: 1vw;
-    max-height: 410px;
+    max-height: 610px;
     overflow: hidden;
     flex-grow: 1;
-
-    :hover {
-        opacity: 0.8;
-    }
 }
 
 .modalAlign {

@@ -1,6 +1,5 @@
 'use client'
 import React, { useEffect, useMemo, useState } from "react";
-import axiosInterceptorInstance from "@/utils/service";
 import { sortAlbums } from "@/utils/sortMusic";
 import Mockdata from '../../../cms/MockAPIdata.json'
 import AlbumCards from "@/components/generic/albumCards/AlbumCards";
@@ -9,42 +8,59 @@ import ModalComponent from "@/components/shared/modal/Modal";
 import CMSdata from '@/cms/Explore.json';
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { explorePageSelector, fetchAlbums } from "@/redux/slice/ExploreStoreSlice";
+import { explorePageSelector, fetchAlbums, setShowPlayListPopUp } from "@/redux/slice/ExploreStoreSlice";
 import { AppDispatch } from "@/redux/store";
 import PlayList from "@/components/generic/playListModal/PlayList";
+import MusicCard from "@/components/generic/musicCards/MusicCard";
+import Favorites from "@/components/generic/favorites/Favorites";
+import { ARTIST, FAVOURITES, GENRE, YOURPLAYLISTS } from "@/utils/constants";
+import AlbumTypeCards from "@/components/generic/albumTypes/AlbumTypeCards";
+import RenderAlbumCards from "@/components/generic/albumCards/RenderAlbumCards";
 const Container = styled.div`
-  font-size:2vw;
-  font-weight:700;
+  font-size:100%;
+  font-weight:500;
   `
 export default function ExploreWrapper() {
     const data = sortAlbums(Mockdata);
     const [show, setShow] = useState(false);
-    let dispatch:AppDispatch = useDispatch();
-    // let  {apiResponse} = useSelector(explorePageSelector)
-    let {apiResponse} = useSelector((state:any) => state.ExplorePageDetails)
-    const RenderedAlbumCards = useMemo(() => apiResponse?.feed?.entry?.map((item: any, i: number) => {
-        return <React.Fragment key={i}><AlbumCards {...item} /></React.Fragment>
-    }), [apiResponse])
+    let dispatch: AppDispatch = useDispatch();
+    let { apiResponse, showPlayListPopUp, searchedAlbum } = useSelector((state: any) => state.ExplorePageDetails)
 
     useEffect(() => {
         dispatch(fetchAlbums());
     }, [])
-
+    const closeModal = () => {
+        dispatch(setShowPlayListPopUp(''))
+    }
     return (
-        <div>
-            <PlayList/>
-            <Container>{CMSdata[0]?.MainHeader}</Container>
+        <div className="mx-3">
+            {searchedAlbum?.[0]?.displayTag && <div>
+                <Container>YOUR Search result</Container>
+                <MusicCard favourites={searchedAlbum[0]} />
+            </div>}
             <section className="d-flex align-items-center w-100 justify-content-between">
                 <h6>{CMSdata[0]?.title1}</h6>
-                <button type="button" className={style.showMorebtn} onClick={()=>setShow(!show)} >
+                <button type="button" className={style.showMorebtn} onClick={() => setShow(!show)} >
                     {CMSdata[0]?.showMore}
                 </button>
             </section>
             <div className={style.top_albums}>
-                {RenderedAlbumCards}
+                <RenderAlbumCards data={apiResponse} />
             </div>
+            <ModalComponent title={'Albums based on Artists'} show={showPlayListPopUp === ARTIST} setShow={closeModal}>
+                <AlbumTypeCards data={data?.artistWise} />
+            </ModalComponent>
+            <ModalComponent title={'Albums based on genre'} show={showPlayListPopUp === GENRE} setShow={closeModal}>
+                <AlbumTypeCards data={data?.genreWise} />
+            </ModalComponent>
             <ModalComponent title={CMSdata[0]?.title1} show={show} setShow={setShow}>
-                <div className={style.modalAlign}>{RenderedAlbumCards}</div>
+                <div className={style.modalAlign}><RenderAlbumCards data={apiResponse} /></div>
+            </ModalComponent>
+            <ModalComponent title={'Playlist'} show={showPlayListPopUp === YOURPLAYLISTS} setShow={closeModal}>
+                <PlayList />
+            </ModalComponent>
+            <ModalComponent title={'Your Favourite Albums'} show={showPlayListPopUp === FAVOURITES} setShow={closeModal}>
+                <Favorites />
             </ModalComponent>
         </div>
     )

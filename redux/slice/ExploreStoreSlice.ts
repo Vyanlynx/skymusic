@@ -6,7 +6,17 @@ import { AppDispatch } from '../store';
 const initialState: any = {
     apiResponse: {},
     favourites: [],
-    playlists: []
+    playlists: {
+        MyPlayList: [],
+        FavouriteTracks: [],
+        FavouriteTracks1: [],
+        FavouriteTracks2: [],
+        FavouriteTracks3: [],
+        FavouriteTracks4: [],
+    },
+    showPlayListPopUp: false,
+    isOpenMenu: true,
+    searchedAlbum: []
 }
 const { actions, reducer } = createSlice({
     name: "Explore",
@@ -14,6 +24,15 @@ const { actions, reducer } = createSlice({
     reducers: {
         fetchAlbumsData: (state, action: PayloadAction<any>) => {
             state.apiResponse = action.payload;
+        },
+        setShowPlayListPopUp: (state, action: PayloadAction<any>) => {
+            state.showPlayListPopUp = action.payload;
+        },
+        setsearchedAlbum: (state, action: PayloadAction<any>) => {
+            state.searchedAlbum = action.payload;
+        },
+        setOpenMenuBar: (state) => {
+            state.isOpenMenu = !state.isOpenMenu;
         },
         addTofavourites: (state, action: PayloadAction<any>) => {
             if (state.favourites.length) {
@@ -24,11 +43,36 @@ const { actions, reducer } = createSlice({
         },
         removeFromFavourites: (state, action: PayloadAction<any>) => {
             state.favourites = action.payload;
-        }
+        },
+        setPlaylistDetails: (state, action: PayloadAction<any>) => {
+            if (Object.keys(state.playlists).length) {
+                state.playlists = { ...state.playlists, [action.payload]: [] };
+            } else {
+                state.playlists = { [action.payload]: [] };
+            }
+        },
+        setSongsIntoPlaylists: (state, action: PayloadAction<any>) => {
+            // console.log(action.payload.song)
+            if (Object.keys(state.playlists).length) {
+                state.playlists[action.payload.playListName] = [...state.playlists[action.payload.playListName], action.payload.song];
+            } else {
+                state.playlists[action.payload.playListName] = [action.payload.song];
+            }
+        },
+
     }
 })
 
-export const { fetchAlbumsData, addTofavourites,removeFromFavourites } = actions;
+export const {
+    fetchAlbumsData,
+    addTofavourites,
+    setSongsIntoPlaylists,
+    removeFromFavourites,
+    setPlaylistDetails,
+    setOpenMenuBar,
+    setsearchedAlbum,
+    setShowPlayListPopUp } = actions;
+
 export const fetchAlbums = () => async (dispatch: AppDispatch) => {
     try {
         let albumData = await apiCall('https://itunes.apple.com/us/rss/topalbums/limit=100/json')

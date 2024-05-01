@@ -1,5 +1,6 @@
 .headercontainer{
     width: 100%;
+    padding-left: 2em;
     // background-color: aqua;
 }
 .secondary{
@@ -13,14 +14,13 @@
     color:white;
     // padding-left: 25px;
     font-size: 12px;
-    padding: 5px 0 5px 25px;
+    padding: 5px 0 5px 10px;
 }
 .searchButton{
     border-radius: 5px;
-    border: none;
-    transform: translateX(23px);
+    // border: none;
     color:white;
-    background-color: none;
+    background-color: blue;
 }
 .offer{
     background-image: linear-gradient(to right top, #df1b8b, #cd30a1, #b641b4, #994fc2, #755bcc, #5d6fdc, #3e80e7, #0090ef, #00aefc, #00c9fe, #00e1f7, #3af8ec);
@@ -28,4 +28,7 @@
     font-size: 12px;
     border-radius: 5px;
     font-weight: 600;
+}
+.w-0{
+    max-width: 0;
 }
