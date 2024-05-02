@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useRef, ChangeEvent } from 'react';
+import React, { useState, useRef, ChangeEvent, SyntheticEvent } from 'react';
 import Image from 'next/image';
 import style from './HeaderWrapper.module.scss';
 import dynamic from 'next/dynamic'
@@ -10,7 +10,19 @@ import { setOpenMenuBar, setsearchedAlbum } from '@/redux/slice/ExploreStoreSlic
 import { searchbarSuggesstionsFilter } from '@/utils/helpers';
 import { AppDispatch } from '@/redux/store';
 const UserProfile = dynamic(() => import("@/components/generic/userProfile/UserProfile"))
-
+interface KeyboardEvent<T = Element> extends SyntheticEvent<T, KeyboardEvent> {
+  altKey: boolean;
+  charCode: number;
+  ctrlKey: boolean;
+  getModifierState(key: string): boolean;
+  key: string;
+  keyCode: number;
+  locale: string;
+  location: number;
+  metaKey: boolean;
+  repeat: boolean;
+  shiftKey: boolean;
+}
 const Input = styled.input`
   color: black;
 `;
@@ -19,7 +31,13 @@ const HeaderWrapper = (): JSX.Element => {
   const [search, setSearch] = useState<string[]>([]);
   const dispatch: AppDispatch = useDispatch();
   let inputRef = useRef<string[]>([]);//to store the selected album response
-  const { isOpenMenu,apiResponse } = useSelector((state: any) => state.ExplorePageDetails);
+  const { isOpenMenu, apiResponse } = useSelector((state: any) => state.ExplorePageDetails);
+  const triggerOnClickOfEnter = (e: any) => {
+    if (e.keyCode === 13) {
+      handleSearchSuggession()
+    }
+  }
+
   //onchange of input field
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { value } = e.target;
@@ -56,13 +74,14 @@ const HeaderWrapper = (): JSX.Element => {
             placeholder="Search..."
             list="listSuggesstion"
             id="input-names"
+            onKeyDown={triggerOnClickOfEnter}
           />
           {search?.length ? <datalist id="listSuggesstion">
             {search.map((item: any, index: number) => (
               <option key={index}>{item?.displayTag}</option>
             ))}
           </datalist> : ''}
-          <button className="btn btn-primary" onClick={handleSearchSuggession}>
+          <button className="btn btn-primary" onClick={handleSearchSuggession} >
             <Image src={'/assests/searchIcon.svg'} alt="SearchIcon" height={16} width={16} priority={false} />
           </button>
         </div>
