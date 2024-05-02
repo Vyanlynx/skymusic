@@ -7,7 +7,7 @@ import style from './Explore.module.scss'
 import CMSdata from '@/cms/Explore.json';
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAlbums, setShowPlayListPopUp } from "@/redux/slice/ExploreStoreSlice";
+import { fetchAlbums, setIsErrorHappened, setShowPlayListPopUp } from "@/redux/slice/ExploreStoreSlice";
 import { AppDispatch } from "@/redux/store";
 import { ARTIST, FAVOURITES, GENRE, YOURPLAYLISTS } from "@/utils/constants";
 
@@ -27,7 +27,7 @@ interface MyObject {
 export default function ExploreWrapper() {
     const [show, setShow] = useState<boolean>(false);
     let dispatch: AppDispatch = useDispatch();
-    let { apiResponse, showPlayListPopUp, searchedAlbum } = useSelector((state: any) => state.ExplorePageDetails)
+    let { apiResponse, showPlayListPopUp, searchedAlbum,isErrorHappened } = useSelector((state: any) => state.ExplorePageDetails)
     const data: MyObject = sortAlbums(apiResponse);
 
     useEffect(() => {
@@ -36,6 +36,9 @@ export default function ExploreWrapper() {
 
     const closeModal = (): void => {
         dispatch(setShowPlayListPopUp('')) //to close the popup
+    }
+    const closeErrorModal = (): void => {
+        dispatch(setIsErrorHappened({status:false})) //to close the popup
     }
 
     return (
@@ -69,6 +72,9 @@ export default function ExploreWrapper() {
             </ModalComponent>
             <ModalComponent title={'Your Favourite Albums'} show={showPlayListPopUp === FAVOURITES} setShow={closeModal}>
                 <Favorites />
+            </ModalComponent>
+            <ModalComponent title={'Error'} show={isErrorHappened?.status} setShow={closeErrorModal}>
+                {isErrorHappened?.message}
             </ModalComponent>
         </div>
     )

@@ -1,8 +1,16 @@
 import { apiCall } from '@/utils/helpers';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppDispatch } from '../store';
-
-const initialState: any = {
+type InitialState = {
+    apiResponse: any;
+    favourites: any[];
+    playlists: Record<string, any>;
+    showPlayListPopUp: boolean;
+    isOpenMenu: boolean;
+    searchedAlbum: any[];
+    isErrorHappened: Record<string, any>;
+};
+const initialState: InitialState = {
     apiResponse: {},
     favourites: [],
     playlists: {
@@ -10,7 +18,8 @@ const initialState: any = {
     },
     showPlayListPopUp: false,
     isOpenMenu: true,
-    searchedAlbum: []
+    searchedAlbum: [],
+    isErrorHappened: {}
 }
 const { actions, reducer } = createSlice({
     name: "Explore",
@@ -21,6 +30,9 @@ const { actions, reducer } = createSlice({
         },
         setShowPlayListPopUp: (state, action: PayloadAction<any>) => {
             state.showPlayListPopUp = action.payload;
+        },
+        setIsErrorHappened: (state, action: PayloadAction<any>) => {
+            state.isErrorHappened = action.payload;
         },
         setsearchedAlbum: (state, action: PayloadAction<any>) => {
             state.searchedAlbum = action.payload;
@@ -64,6 +76,7 @@ export const {
     removeFromFavourites,
     setPlaylistDetails,
     setOpenMenuBar,
+    setIsErrorHappened,
     setsearchedAlbum,
     setShowPlayListPopUp } = actions;
 
@@ -72,7 +85,7 @@ export const fetchAlbums = () => async (dispatch: AppDispatch) => {
         let albumData = await apiCall('https://itunes.apple.com/us/rss/topalbums/limit=100/json')
         dispatch(fetchAlbumsData(albumData));
     } catch (error) {
-        console.log(error)
+        dispatch(setIsErrorHappened({ status: true, message: 'ApiCall failed' }))
     }
 }
 export default reducer;

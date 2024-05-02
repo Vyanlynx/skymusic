@@ -12,8 +12,8 @@ export const apiCall = async (payload: string) => {
         let res = await fetch(payload)
         let data = await res.json();
         return data;
-    } catch (error) {
-        console.log(error);
+    } catch (error:any) {
+        throw new Error(error)
     }
 };
 
