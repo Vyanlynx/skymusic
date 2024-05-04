@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import dynamic from 'next/dynamic'
 
 import { sortAlbums } from "@/utils/sortMusic";
@@ -10,12 +10,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchAlbums, setIsErrorHappened, setShowPlayListPopUp } from "@/redux/slice/ExploreStoreSlice";
 import { AppDispatch } from "@/redux/store";
 import { ARTIST, FAVOURITES, GENRE, YOURPLAYLISTS } from "@/utils/constants";
+import { Spinner } from "react-bootstrap";
 
 const ModalComponent = dynamic(() => import("@/components/shared/modal/Modal"))
-const PlayList = dynamic(() => import("@/components/generic/playListModal/PlayList"))
+const PlayList = dynamic(() => import("@/components/generic/playListModal/PlayList"), {
+    ssr: false, loading: () => <Spinner animation="grow" variant="danger" />
+})
 const MusicCard = dynamic(() => import("@/components/generic/musicCards/MusicCard"))
-const Favorites = dynamic(() => import("@/components/generic/favorites/Favorites"))
-const AlbumTypeCards = dynamic(() => import("@/components/generic/albumTypes/AlbumTypeCards"))
+const Favorites = dynamic(() => import("@/components/generic/favorites/Favorites"), {
+    ssr: false, loading: () => <Spinner animation="grow" variant="danger" />
+})
+const AlbumTypeCards = dynamic(() => import("@/components/generic/albumTypes/AlbumTypeCards"), {
+    ssr: false, loading: () => <Spinner animation="grow" variant="danger" />
+})
 const RenderAlbumCards = dynamic(() => import("@/components/generic/albumCards/RenderAlbumCards"))
 const Container = styled.div`
   font-size:100%;
@@ -27,7 +34,7 @@ interface MyObject {
 export default function ExploreWrapper() {
     const [show, setShow] = useState<boolean>(false);
     let dispatch: AppDispatch = useDispatch();
-    let { apiResponse, showPlayListPopUp, searchedAlbum,isErrorHappened } = useSelector((state: any) => state.ExplorePageDetails)
+    let { apiResponse, showPlayListPopUp, searchedAlbum, isErrorHappened } = useSelector((state: any) => state.ExplorePageDetails)
     const data: MyObject = sortAlbums(apiResponse);
 
     useEffect(() => {
@@ -38,7 +45,7 @@ export default function ExploreWrapper() {
         dispatch(setShowPlayListPopUp('')) //to close the popup
     }
     const closeErrorModal = (): void => {
-        dispatch(setIsErrorHappened({status:false})) //to close the popup
+        dispatch(setIsErrorHappened({ status: false })) //to close the popup
     }
 
     return (
